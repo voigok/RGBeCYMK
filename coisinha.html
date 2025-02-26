@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos de Cores: RGB e CMYK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 30px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .slider {
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .slider-label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Modelos de Cores: RGB e CMYK</h1>
+
+        <!-- Seção RGB -->
+        <div class="section">
+            <h2>Modelo RGB</h2>
+            <p>
+                O modelo RGB (Red, Green, Blue) é um sistema de cores aditivo usado em dispositivos eletrônicos, como monitores e TVs. As cores são criadas combinando diferentes intensidades de vermelho, verde e azul.
+            </p>
+            <div class="controls">
+                <div class="color-box" id="rgbColorBox">
+                    RGB(0, 0, 0)
+                </div>
+                <div class="slider-container">
+                    <label for="red" class="slider-label">Vermelho (R): <span id="redValue">0</span></label>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="red">
+                </div>
+                <div class="slider-container">
+                    <label for="green" class="slider-label">Verde (G): <span id="greenValue">0</span></label>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="green">
+                </div>
+                <div class="slider-container">
+                    <label for="blue" class="slider-label">Azul (B): <span id="blueValue">0</span></label>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="blue">
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção CMYK -->
+        <div class="section">
+            <h2>Modelo CMYK</h2>
+            <p>
+                O modelo CMYK (Ciano, Magenta, Amarelo, Preto) é um sistema de cores subtrativo usado principalmente em impressão. As cores são criadas subtraindo porcentagens de ciano, magenta, amarelo e preto da luz branca.
+            </p>
+            <div class="controls">
+                <div class="color-box" id="cmykColorBox">
+                    CMYK(0%, 0%, 0%, 0%)
+                </div>
+                <div class="slider-container">
+                    <label for="cyan" class="slider-label">Ciano (C): <span id="cyanValue">0%</span></label>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="cyan">
+                </div>
+                <div class="slider-container">
+                    <label for="magenta" class="slider-label">Magenta (M): <span id="magentaValue">0%</span></label>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="magenta">
+                </div>
+                <div class="slider-container">
+                    <label for="yellow" class="slider-label">Amarelo (Y): <span id="yellowValue">0%</span></label>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="yellow">
+                </div>
+                <div class="slider-container">
+                    <label for="black" class="slider-label">Preto (K): <span id="blackValue">0%</span></label>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="black">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funções para RGB
+        const redSlider = document.getElementById('red');
+        const greenSlider = document.getElementById('green');
+        const blueSlider = document.getElementById('blue');
+        const rgbColorBox = document.getElementById('rgbColorBox');
+        const redValue = document.getElementById('redValue');
+        const greenValue = document.getElementById('greenValue');
+        const blueValue = document.getElementById('blueValue');
+
+        function updateRgbColor() {
+            const red = redSlider.value;
+            const green = greenSlider.value;
+            const blue = blueSlider.value;
+
+            rgbColorBox.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+            rgbColorBox.textContent = `RGB(${red}, ${green}, ${blue})`;
+
+            redValue.textContent = red;
+            greenValue.textContent = green;
+            blueValue.textContent = blue;
+        }
+
+        redSlider.addEventListener('input', updateRgbColor);
+        greenSlider.addEventListener('input', updateRgbColor);
+        blueSlider.addEventListener('input', updateRgbColor);
+
+        // Funções para CMYK
+        const cyanSlider = document.getElementById('cyan');
+        const magentaSlider = document.getElementById('magenta');
+        const yellowSlider = document.getElementById('yellow');
+        const blackSlider = document.getElementById('black');
+        const cmykColorBox = document.getElementById('cmykColorBox');
+        const cyanValue = document.getElementById('cyanValue');
+        const magentaValue = document.getElementById('magentaValue');
+        const yellowValue = document.getElementById('yellowValue');
+        const blackValue = document.getElementById('blackValue');
+
+        function cmykToRgb(c, m, y, k) {
+            c = c / 100;
+            m = m / 100;
+            y = y / 100;
+            k = k / 100;
+
+            const r = 255 * (1 - c) * (1 - k);
+            const g = 255 * (1 - m) * (1 - k);
+            const b = 255 * (1 - y) * (1 - k);
+
+            return {
+                r: Math.round(r),
+                g: Math.round(g),
+                b: Math.round(b)
+            };
+        }
+
+        function updateCmykColor() {
+            const cyan = parseInt(cyanSlider.value);
+            const magenta = parseInt(magentaSlider.value);
+            const yellow = parseInt(yellowSlider.value);
+            const black = parseInt(blackSlider.value);
+
+            const rgb = cmykToRgb(cyan, magenta, yellow, black);
+
+            cmykColorBox.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            cmykColorBox.textContent = `CMYK(${cyan}%, ${magenta}%, ${yellow}%, ${black}%)`;
+
+            cyanValue.textContent = `${cyan}%`;
+            magentaValue.textContent = `${magenta}%`;
+            yellowValue.textContent = `${yellow}%`;
+            blackValue.textContent = `${black}%`;
+        }
+
+        cyanSlider.addEventListener('input', updateCmykColor);
+        magentaSlider.addEventListener('input', updateCmykColor);
+        yellowSlider.addEventListener('input', updateCmykColor);
+        blackSlider.addEventListener('input', updateCmykColor);
+
+        // Inicializa as cores
+        updateRgbColor();
+        updateCmykColor();
+    </script>
+
+</body>
+</html>
